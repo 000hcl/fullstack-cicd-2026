@@ -8,6 +8,8 @@ on:
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./fs-pokedex
     steps:
       - name: Say hello
         run: |
@@ -16,6 +18,5 @@ jobs:
         run: |
           date
       - name: Run ls -l
-        working-directory: fs-pokedex
         run: |
           ls -l
