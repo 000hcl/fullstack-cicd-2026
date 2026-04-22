@@ -16,6 +16,6 @@ jobs:
         run: |
           date
       - name: Run ls -l
-        working-directory: /fs-pokedex
+        working-directory: fs-pokedex
         run: |
           ls -l
