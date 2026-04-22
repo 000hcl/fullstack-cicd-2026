@@ -8,8 +8,6 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
-    env:
-      working-directory: fs-pokedex
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
