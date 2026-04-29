@@ -25,5 +25,5 @@ jobs:
       - name: testing skip
         env:
           TEST: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && contains(join(github.event.commits.*.message, ' '), '#skip') }}
         run: echo "$TEST"
