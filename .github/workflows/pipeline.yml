@@ -65,7 +65,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   notify_failure:
-    needs: [simple_deployment_pipeline]
+    needs: [deploy_app]
     runs-on: ubuntu-latest
     if: ${{ failure() }}
     
