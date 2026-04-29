@@ -30,12 +30,12 @@ jobs:
         run: npm run test:e2e
 
   deployment:
-  needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger deployment
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
-        run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
+    needs: [simple_deployment_pipeline]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Trigger deployment
+          if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
+          run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
 
   tag_release:
     needs: [deployment]
