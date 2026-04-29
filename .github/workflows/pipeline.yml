@@ -28,12 +28,17 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run test:e2e
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
         run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
 
+jobs:
   tag_release:
-    needs: [simple_deployment_pipeline]
+    needs: [deployment]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -47,9 +52,10 @@ jobs:
         uses: anothrNick/github-tag-action@1.75.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+
+jobs:
   notify_success:
-    needs: [simple_deployment_pipeline]
+    needs: [deployment]
     runs-on: ubuntu-latest
     if: ${{ success() }}
     
@@ -57,7 +63,8 @@ jobs:
       - uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-  
+
+jobs:
   notify_failure:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
