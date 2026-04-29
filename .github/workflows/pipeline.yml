@@ -71,3 +71,5 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           color: 0xff0000
           status: 'Failure'
+          description: |
+            **Commit:** ${{ github.sha }}
