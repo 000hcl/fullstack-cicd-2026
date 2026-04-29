@@ -51,9 +51,9 @@ jobs:
   notify_success:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
+    if: ${{ success() }}
     
     steps:
       - uses: sarisia/actions-status-discord@v1
-    if: ${{ success() }}
-    with:
-      webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
