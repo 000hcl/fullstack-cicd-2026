@@ -18,6 +18,8 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: npm install
+      - name: Force failure
+        run: exit 1
       - name: Check style
         run: npm run eslint
       - name: Run tests
@@ -52,6 +54,16 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
     if: ${{ success() }}
+    
+    steps:
+      - uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+  
+  notify_failure:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
     
     steps:
       - uses: sarisia/actions-status-discord@v1
