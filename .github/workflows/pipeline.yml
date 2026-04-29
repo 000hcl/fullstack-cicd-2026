@@ -70,3 +70,4 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           color: 0xff0000
+          status: 'Failure'
